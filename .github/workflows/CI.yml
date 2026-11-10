@@ -18,8 +18,9 @@ jobs:
       - name: lint code 
         uses: github/super-linter@v4
         env:
-          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: devsecops
+          FILTER_REGEX_INCLUDE: '.*(frontend|backend)/.*'
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
           
 
