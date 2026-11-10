@@ -26,12 +26,16 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Run gitleaks scan
         uses: gitleaks/gitleaks-action@v3
         with:
-            gitleaks-version: v8.0.0
+          gitleaks-version: v8.0.0
         env:
-            GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
 
       
 
