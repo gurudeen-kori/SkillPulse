@@ -12,7 +12,7 @@ One push to `main` →
 3. `http://<ec2-public-ip>` serves the latest SkillPulse.
 
 The EC2 itself is created **once** by Terraform, run locally by the instructor. After that, every app deploy is automated.
-
+*
 ---
 
 ## 2. Architecture
