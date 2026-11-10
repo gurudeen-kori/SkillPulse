@@ -22,6 +22,10 @@ jobs:
           DEFAULT_BRANCH: devsecops
           FILTER_REGEX_INCLUDE: '.*(frontend|backend)/.*'
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+  secrets-scan:
+    needs: code-quality
+    runs-on: ubuntu-latest
+    steps:
       - name: Run gitleaks scan
         uses: gitleaks/gitleaks-action@v3
         with:
