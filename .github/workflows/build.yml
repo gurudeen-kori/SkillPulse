@@ -26,12 +26,12 @@ jobs:
           - name: build fronend docker image
             uses: docker/build-push-action@v5
             with:
-             context: ./frontend
+             context: .
              file: ./frontend/Dockerfile
              push: true
              tags: |
-                ${{ secrets.DOCKERHUB_USERNAME }}/skillpulse/skillpulse-frontend:latest
-                ${{ secrets.DOCKERHUB_USERNAME }}/skillpulse/skillpulse-frontend:${{ github.sha }}
+                ${{ secrets.DOCKERHUB_USERNAME }}/skillpulse-frontend:latest
+                ${{ secrets.DOCKERHUB_USERNAME }}/skillpulse-frontend:${{ github.sha }}
 
     backend-build:
         runs-on: ubuntu-latest
@@ -49,9 +49,9 @@ jobs:
           - name: build backend docker image
             uses: docker/build-push-action@v5
             with:
-             context: ./backend
+             context: .
              file: ./backend/Dockerfile
              push: true
              tags: |
-               ${{ secrets.DOCKERHUB_USERNAME }}/skillpulse/skillpulse-backend:latest
-               ${{ secrets.DOCKERHUB_USERNAME }}/skillpulse/skillpulse-backend:${{ github.sha }}
+               ${{ secrets.DOCKERHUB_USERNAME }}/skillpulse-backend:latest
+               ${{ secrets.DOCKERHUB_USERNAME }}/skillpulse-backend:${{ github.sha }}
