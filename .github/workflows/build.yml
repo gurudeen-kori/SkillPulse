@@ -1,0 +1,51 @@
+name: docker build & push
+
+on:
+  push:
+    branches: [ devsecops ]
+  pull_request:
+    branches: [ devsecops ]
+  workflow_dispatch:
+jobs:
+    frontend-build:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+          - name: login to docker hub
+            uses: docker/login-action@v2
+            with:
+              username: ${{ vars.DOCKER_USERNAME }}
+              password: ${{ secrets.dOCKER_PASSWORD }}
+
+
+          - name: build fronend docker image
+            uses: docker/build-push-action@v5
+            with:
+             context: ./frontend
+             file: ./frontend/Dockerfile
+             push: true
+             tags: |
+                ${{ vars.DOCKER_USERNAME }}/skillpulse/skillpulse-frontend:latest
+                ${{ vars.DOCKER_USERNAME }}/skillpulse/skillpulse-frontend:${{ github.sha }}
+
+    backend-build:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+          - name: login to docker hub
+            uses: docker/login-action@v2
+            with:
+              username: ${{ vars.DOCKER_USERNAME }}
+              password: ${{ secrets.DOCKER_PASSWORD }}
+
+          - name: build backend docker image
+            uses: docker/build-push-action@v5
+            with:
+             context: ./backend
+             file: ./backend/Dockerfile
+             push: true
+             tags: |
+               ${{ vars.DOCKER_USERNAME }}/skillpulse/skillpulse-backend:latest
+               ${{ vars.DOCKER_USERNAME }}/skillpulse/skillpulse-backend:${{ github.sha }}
