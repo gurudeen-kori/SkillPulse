@@ -1,11 +1,7 @@
 name: docker build & push
 
 on:
-  push:
-    branches: [ devsecops ]
-  pull_request:
-    branches: [ devsecops ]
-  workflow_dispatch:
+  workflow_call:
 jobs:
     frontend-build:
         runs-on: ubuntu-latest
