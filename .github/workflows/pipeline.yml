@@ -9,16 +9,15 @@ on:
       - devsecops
 
 jobs:
+  code-quality:
+    uses: ./.github/workflows/code-quality.yml
+    secrets: inherit
   secrets-scan:
+    needs: code-quality
     uses: ./.github/workflows/secrets-scan.yml
     secrets: inherit
-
   build:
     needs: secrets-scan
     uses: ./.github/workflows/build.yml
     secrets: inherit
 
-  ci:
-    needs: build
-    uses: ./.github/workflows/code-quality.yml
-    secrets: inherit
