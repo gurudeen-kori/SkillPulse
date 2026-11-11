@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  workflow_call:
+
+jobs:
+  code-quality:
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: lint code 
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: devsecops
+          FILTER_REGEX_INCLUDE: '.*(frontend|backend)/.*'
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+  secrets-scan:
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run gitleaks scan
+        uses: gitleaks/gitleaks-action@v3
+        with:
+          gitleaks-version: v8.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      
+
+    
